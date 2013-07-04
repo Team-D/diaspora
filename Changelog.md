@@ -1,3 +1,17 @@
+# Head
+
+## Refactor
+* Background actual mailing when sending invitations [#4069](https://github.com/diaspora/diaspora/issues/4069)
+
+## Bug fixes
+* Don't focus comment form on 'show n more comments' [#4265](https://github.com/diaspora/diaspora/issues/4265)
+* Do not render mobile photo view for none-existing photos [#4194](https://github.com/diaspora/diaspora/issues/4194)
+
+## Features
+* Admin: add option to find users under 13 (COPPA) [#4252](https://github.com/diaspora/diaspora/pull/4252)
+* Show the user if a contact is sharing with them when viewing their profile page [#2948](https://github.com/diaspora/diaspora/issues/2948)
+* Made Unicorn timeout configurable and increased the default to 90 seconds
+
 # 0.1.1.0
 
 ## Refactor

@@ -4,7 +4,7 @@
 
 defaults:
   version:
-    number: "0.1.1.0" # Do not touch unless doing a release, do not backport the version number that's in master but keep develp to always say "head"
+    number: "head" # Do not touch unless doing a release, do not backport the version number that's in master but keep develp to always say "head"
   heroku: false
   environment:
     url: "http://localhost:3000/"
@@ -38,6 +38,7 @@ defaults:
     stdout_log:
     database: 'mysql'
     unicorn_worker: 2
+    unicorn_timeout: 90
     embed_sidekiq_worker: false
     sidekiq_workers: 1
   privacy:
