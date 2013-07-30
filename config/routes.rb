@@ -5,6 +5,8 @@
 require 'sidekiq/web'
 
 Diaspora::Application.routes.draw do
+
+
   if Rails.env.production?
     mount RailsAdmin::Engine => '/admin_panel', :as => 'rails_admin'
   end
@@ -79,11 +81,15 @@ Diaspora::Application.routes.draw do
   resources :notifications, :only => [:index, :update] do
   end
 
-  resources :tags, :only => [:index]
+  resources :tags, :only => [:index, :show]
 
   resources "tag_followings", :only => [:create, :destroy, :index]
 
   get 'tags/:name' => 'tags#show', :as => 'tag'
+
+
+  resources :search, :only => [:index]
+  get "search/index"
 
   resources :apps, :only => [:show]
 

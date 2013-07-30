@@ -4,7 +4,7 @@
 
 class PeopleController < ApplicationController
   before_filter :authenticate_user!, :except => [:show, :last_post]
-  before_filter :redirect_if_tag_search, :only => [:index]
+#  before_filter :redirect_if_tag_search, :only => [:index]
 
   respond_to :html, :except => [:tag_index]
   respond_to :json, :only => [:index, :show]
@@ -54,10 +54,10 @@ class PeopleController < ApplicationController
   def refresh_search
     @aspect = :search
     @people =  Person.where(:diaspora_handle => search_query.downcase)
+
     @answer_html = ""
     unless @people.empty?
       @hashes = hashes_for_people(@people, @aspects)
-
       self.formats = self.formats + [:html]
       @answer_html = render_to_string :partial => 'people/person', :locals => @hashes.first
     end
@@ -74,7 +74,6 @@ class PeopleController < ApplicationController
   # renders the persons user profile page
   def show
     @person = Person.find_from_guid_or_username(params)
-
     authenticate_user! if remote_profile_with_no_user_session?
     raise Diaspora::AccountClosed if @person.closed_account?
 
@@ -154,25 +153,22 @@ class PeopleController < ApplicationController
   # renders "thats you" in case the current user views himself
   def aspect_membership_dropdown
     @person = Person.find_by_guid(params[:person_id])
-
     # you are not a contact of yourself...
     return render :text => I18n.t('people.person.thats_you') if @person == current_user.person
-
     @contact = current_user.contact_for(@person) || Contact.new
     render :partial => 'aspect_membership_dropdown', :locals => {:contact => @contact, :person => @person, :hang => 'left'}
   end
 
-  def redirect_if_tag_search
-    if search_query.starts_with?('#')
-      if search_query.length > 1
-
-        redirect_to tag_path(:name => search_query.delete('#.'))
-      else
-        flash[:error] = I18n.t('tags.show.none', :name => search_query)
-        redirect_to :back
-      end
-    end
-  end
+#  def redirect_if_tag_search
+#    if search_query.starts_with?('#')
+#      if search_query.length > 1
+#        redirect_to tag_path(:name => search_query.delete('#.'))
+#      else
+#        flash[:error] = I18n.t('tags.show.none', :name => search_query)
+#        redirect_to :back
+#      end
+#    end
+#  end
 
   private
 
